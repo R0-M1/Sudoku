@@ -8,3 +8,15 @@
 ### Membres
 ***
 AILLAUD Romain
+
+
+
+
+
+### Idées
+***
+
+faire des classes lignes et colonnes qui partage les memes references de Case avec la classe Bloc
+
+Avantages : 
+reduit la complexité
