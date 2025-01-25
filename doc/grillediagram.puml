@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/class-diagram
+class multidoku{
+arraylist<Grille>
+gererbloccommun()
+}
+ class Sudoku {
+arraylist<Bloc> Grille
+int taille
+method()
+casenoncommun()
+}
+class Bloc {
+arraylist<Case>
+}
+
+class Ligne {
+int index
+}
+
+class Bloccarré {
+super
+int taille
+Bloccarré()
+vérifiecarré()
+
+
+}
+
+multidoku *-- Sudoku
+
+Sudoku *-- Bloc
+Bloc *-- Case
+Bloc <|-- Ligne
+Bloc <|-- Colonne
+Bloc <|-- Bloccarré
+
+class Colonne {
+int index
+}
+class Case {
+int x
+int y
+int valeur
+
+}
+
+
+@enduml
