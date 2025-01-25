@@ -1,5 +1,5 @@
 public class Bloc {
-    private int taille;
+    protected int taille;
 
     public Bloc(int taille) {
         this.taille = taille;
