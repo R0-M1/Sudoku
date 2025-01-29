@@ -14,7 +14,7 @@ public class MenuTextuel {
         System.out.print("Choisissez une option: ");
     }
 
-    // Méthode pour entrer une grille de Sudoku
+    // Méthode pour entrer une grille de Game.Sudoku
     public static int[][] entrerGrille(Scanner scanner) {
         int[][] grille = new int[9][9];
         System.out.println("Entrez les valeurs de la grille (0 pour les cases vides):");
@@ -29,7 +29,7 @@ public class MenuTextuel {
 
     // Méthode pour résoudre la grille en utilisant une méthode spécifique
     public static boolean resoudreGrille(int[][] grille, String methode) {
-        // Implémenter la résolution de Sudoku ici
+        // Implémenter la résolution de Game.Sudoku ici
         // Par exemple, appliquer des règles, retour sur trace, ou les deux.
         System.out.println("Résolution de la grille en utilisant la méthode: " + methode);
         // Implémenter la logique de résolution ici
@@ -38,7 +38,7 @@ public class MenuTextuel {
 
     // Méthode pour afficher la grille
     public static void afficherGrille(int[][] grille) {
-        System.out.println("Grille actuelle:");
+        System.out.println("Game.Grille actuelle:");
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 System.out.print(grille[i][j] + " ");
@@ -75,8 +75,8 @@ public class MenuTextuel {
             switch (choix) {
                 case 1:
                     grille = entrerGrille(scanner);
-                    grilleResolue = false; // Grille à résoudre
-                    System.out.println("Grille entrée avec succès.");
+                    grilleResolue = false; // Game.Grille à résoudre
+                    System.out.println("Game.Grille entrée avec succès.");
                     break;
 
                 case 2:

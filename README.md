@@ -1,4 +1,4 @@
-# Sudoku
+# Game.Sudoku
 
 ### Organisation de l'archive
 ***
@@ -16,7 +16,7 @@ AILLAUD Romain
 ### Idées
 ***
 
-faire des classes lignes et colonnes qui partage les memes references de Case avec la classe Bloc
+faire des classes lignes et colonnes qui partage les memes references de Game.Case avec la classe Game.Bloc
 
 Avantages : 
 reduit la complexité
