@@ -6,9 +6,9 @@ public class Grille {
 
     public Grille(int taille) {
         this.taille = taille;
-        for(int i : taille) {
-            blocs.add(new Bloc(taille));
-        }
+        //for (int k=0,k<=taille, k++)  {
+        //    blocs.add(new Bloc(taille));
+        //}
     }
     public boolean validerGrille() {
         // TODO appelle les fonctions vérifier lignes/colonnes et vérifier bloc

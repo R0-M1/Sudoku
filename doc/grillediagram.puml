@@ -1,8 +1,18 @@
 @startuml
 'https://plantuml.com/class-diagram
+
 class multidoku{
 arraylist<Grille>
 gererbloccommun()
+}
+interface génération{
+
+}
+class coordoner{
+int x;
+int y;
+getx()
+gety()
 }
  class Sudoku {
 arraylist<Bloc> Grille
@@ -28,7 +38,7 @@ vérifiecarré()
 }
 
 multidoku *-- Sudoku
-
+Case *-- coordoner
 Sudoku *-- Bloc
 Bloc *-- Case
 Bloc <|-- Ligne
@@ -39,8 +49,7 @@ class Colonne {
 int index
 }
 class Case {
-int x
-int y
+coordoner coord
 int valeur
 
 }
