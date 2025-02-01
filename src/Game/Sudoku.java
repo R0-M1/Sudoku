@@ -1,7 +1,8 @@
 package Game;
 
+import java.util.List;
+
 public class Sudoku {
-    // Instancie une grille et un solveur
     private Grille grille;
     private Solveur solveur;
 
@@ -10,8 +11,9 @@ public class Sudoku {
         this.solveur = new Solveur(grille);
     }
 
-    public boolean solve() {
-        return solveur.solve();
+    public boolean solve(List<MethodeResolution> methodes) {
+        List<MethodeResolution> regles = new java.util.ArrayList<>(List.copyOf(methodes));
+        return solveur.solve(regles.remove(MethodeResolution.BACKTRACKING), regles);
     }
 
     public Game.Case[][] getGrille() {

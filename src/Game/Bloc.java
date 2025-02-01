@@ -19,8 +19,9 @@ public class Bloc {
             int valeur = c.getValeur();
             if (valeurs.contains(valeur)) {
                 return false;
+            } else if (valeur != 0) {
+                valeurs.add(valeur);
             }
-            valeurs.add(valeur);
         }
 
         return true;

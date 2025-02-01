@@ -110,4 +110,14 @@ public class Grille {
         return true; // No duplicates found, grid is valid
     }
 
+    public boolean isComplete() {
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                if(grille[i][j].getValeur() == 0) {
+                    return false;
+                }
+            }
+        }
+        return isValid();
+    }
 }

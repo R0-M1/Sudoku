@@ -1,11 +1,10 @@
 package UI;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 import Game.Case;
 import Game.Sudoku;
+import Game.MethodeResolution;
 
 // TODO Interface textuelle dans la console
 public class ConsoleUI {
@@ -43,7 +42,8 @@ public class ConsoleUI {
             System.out.println("3. Afficher le sudoku");
             System.out.println("4. Afficher la suite d'opérations");
             System.out.println("5. Générer une ou plusieurs grilles à partir d'une grille complète et d’un niveau de difficulté");
-            System.out.println("6. Quitter");
+            System.out.println("6. Grilles de test");
+            System.out.println("7. Quitter");
 
             int choix = scanner.nextInt();
             switch (choix) {
@@ -52,21 +52,55 @@ public class ConsoleUI {
                     demanderGrille();
                     break;
                 case 2:
+                    List<MethodeResolution> methodes = new ArrayList<>();
                     while (true) {
                         System.out.println("\033[1mChoisissez une méthode de résolution :\033[0m");
-                        System.out.println("1. Par règle de déduction");
-                        System.out.println("2. Par retour sur trace");
-                        System.out.println("3. Retour au menu principal");
+                        System.out.println("Méthodes sélectionnées : " + (methodes.isEmpty() ? "Aucune" : methodes));
+                        System.out.println("1. Par règle de déduction : Elimination directe " + (methodes.contains(MethodeResolution.ELIMINATION_DIRECTE) ? "✓" : ""));
+                        System.out.println("2. Par règle de déduction : Unicité " + (methodes.contains(MethodeResolution.UNICITE) ? "✓" : ""));
+                        System.out.println("3. Par règle de déduction : Paires " + (methodes.contains(MethodeResolution.PAIRES) ? "✓" : ""));
+                        System.out.println("4. Par retour sur trace " + (methodes.contains(MethodeResolution.BACKTRACKING) ? "✓" : ""));
+                        System.out.println("5. Résoudre");
+                        System.out.println("6. Retour au menu principal");
+
                         int choix2 = scanner.nextInt();
                         switch (choix2) {
                             case 1:
-                                if(!sudoku.solve()) System.out.println("Aucune solution trouvé par déduction");
-                                // Appeler regle deduction
-                                break;
+                                if (methodes.contains(MethodeResolution.ELIMINATION_DIRECTE)) {
+                                    methodes.remove(MethodeResolution.ELIMINATION_DIRECTE);
+                                } else {
+                                    methodes.add(MethodeResolution.ELIMINATION_DIRECTE);
+                                }
+                                continue;
                             case 2:
-                                // Appeler back tracking
-                                break;
+                                if (methodes.contains(MethodeResolution.UNICITE)) {
+                                    methodes.remove(MethodeResolution.UNICITE);
+                                } else {
+                                    methodes.add(MethodeResolution.UNICITE);
+                                }
+                                continue;
                             case 3:
+                                if (methodes.contains(MethodeResolution.PAIRES)) {
+                                    methodes.remove(MethodeResolution.PAIRES);
+                                } else {
+                                    methodes.add(MethodeResolution.PAIRES);
+                                }
+                                continue;
+                            case 4:
+                                if (methodes.contains(MethodeResolution.BACKTRACKING)) {
+                                    methodes.remove(MethodeResolution.BACKTRACKING);
+                                } else {
+                                    methodes.add(MethodeResolution.BACKTRACKING);
+                                }
+                                continue;
+                            case 5:
+                                if (sudoku.solve(methodes)) {
+                                    System.out.println("Sudoku résolu !");
+                                } else {
+                                    System.out.println("Aucune solution trouvée");
+                                }
+                                break;
+                            case 6:
                                 System.out.println("Retour au menu principal...");
                                 break;
                             default:
@@ -86,12 +120,12 @@ public class ConsoleUI {
                     // Génère une grille à partir d'une grille complète et d'un niveau de difficulté
                     break;
                 case 6:
-                    System.out.println("Au revoir!");
-                    System.exit(0);
-                    break;
-                case 7:
                     sudoku = new Sudoku(9);
                     initGrille(); // TODO fonction de test a supprimer
+                    break;
+                case 7:
+                    System.out.println("Au revoir!");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Choix invalide. Veuillez réessayer.");
@@ -146,16 +180,29 @@ public class ConsoleUI {
     }
 
     private void initGrille() {
+//        int[][] initialValues = {
+//                {3, 6, 7, 0, 0, 9, 0, 5, 8},
+//                {0, 2, 0, 5, 0, 1, 7, 0, 0},
+//                {5, 9, 0, 8, 0, 7, 0, 2, 6},
+//                {0, 3, 9, 0, 0, 0, 2, 1, 4},
+//                {6, 4, 8, 1, 7, 2, 9, 0, 5},
+//                {1, 5, 2, 0, 9, 4, 0, 6, 7},
+//                {4, 1, 6, 9, 8, 3, 5, 7, 2},
+//                {2, 0, 3, 7, 1, 0, 6, 4, 9},
+//                {0, 7, 5, 2, 0, 0, 0, 8, 1}
+//        };
+
+
         int[][] initialValues = {
-                {3, 6, 7, 0, 0, 9, 0, 5, 8},
-                {0, 2, 0, 5, 0, 1, 7, 0, 0},
-                {5, 9, 0, 8, 0, 7, 0, 2, 6},
-                {0, 3, 9, 0, 0, 0, 2, 1, 4},
-                {6, 4, 8, 1, 7, 2, 9, 0, 5},
-                {1, 5, 2, 0, 9, 4, 0, 6, 7},
-                {4, 1, 6, 9, 8, 3, 5, 7, 2},
-                {2, 0, 3, 7, 1, 0, 6, 4, 9},
-                {0, 7, 5, 2, 0, 0, 0, 8, 1}
+                {0, 0, 0, 6, 7, 2, 0, 5, 0},
+                {5, 0, 0, 4, 3, 9, 0, 2, 8},
+                {0, 2, 0, 0, 0, 0, 3, 0, 0},
+                {0, 0, 0, 0, 9, 0, 5, 0, 6},
+                {0, 0, 5, 7, 0, 4, 9, 1, 0},
+                {9, 0, 1, 0, 0, 3, 8, 0, 0},
+                {0, 9, 2, 3, 1, 7, 0, 8, 5},
+                {8, 5, 0, 9, 2, 6, 0, 0, 1},
+                {0, 0, 0, 8, 4, 5, 2, 0, 0}
         };
 
 
