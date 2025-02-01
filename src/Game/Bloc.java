@@ -1,6 +1,7 @@
 package Game;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Bloc {
     protected int taille;
@@ -12,7 +13,20 @@ public class Bloc {
     }
 
     public boolean validerBloc() {
-        // TODO vérifie que les valeurs des cases sont bien différentes
-        throw new RuntimeException("implémenter la fonction");
+        HashSet<Integer> valeurs = new HashSet<>();
+
+        for (Case c : cases) {
+            int valeur = c.getValeur();
+            if (valeurs.contains(valeur)) {
+                return false;
+            }
+            valeurs.add(valeur);
+        }
+
+        return true;
+    }
+
+    public ArrayList<Case> getCases() {
+        return cases;
     }
 }

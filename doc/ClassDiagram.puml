@@ -16,6 +16,7 @@ class GUI {
 
 GUI --> Sudoku
 ConsoleUI --> Sudoku
+ConsoleUI ..> Case
 
 Class Sudoku {
 
@@ -30,13 +31,11 @@ class Solveur {
 
 class Grille {
 Case[][] grille
-Bloc[] bloc
-Bloc[] col
-Bloc[] row
+Bloc[] blocs
 int taille
 
 Case[][] getGrille()
-
+boolean isValid()
 }
 
 Grille o-- Case
@@ -48,8 +47,9 @@ Case[] cases
 
 
 class Case {
-int (x,y)
-int valeur
+int idBloc
+Integer valeur
+// boolean fixed
 }
 
 @enduml
