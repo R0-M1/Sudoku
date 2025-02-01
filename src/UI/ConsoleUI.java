@@ -9,9 +9,9 @@ import Game.Sudoku;
 
 // TODO Interface textuelle dans la console
 public class ConsoleUI {
-    public static final Map<Integer, String> colorMatch = createColorMap(); // pour le multidoku avec blocs de couleur
-    Sudoku sudoku;
-    int taille;
+    private static final Map<Integer, String> colorMatch = createColorMap(); // pour le multidoku avec blocs de couleur
+    private Sudoku sudoku;
+    private int taille;
 
     private static Map<Integer, String> createColorMap() {
         Map<Integer, String> map = new HashMap<>();
@@ -58,7 +58,28 @@ public class ConsoleUI {
                     demanderGrille();
                     break;
                 case 2:
-                    // Implement method of resolution here
+                    while (true) {
+                        System.out.println("\033[1mChoisissez une méthode de résolution :\033[0m");
+                        System.out.println("1. Par règle de déduction");
+                        System.out.println("2. Par retour sur trace");
+                        System.out.println("3. Retour au menu principal");
+                        int choix2 = scanner.nextInt();
+                        switch (choix2) {
+                            case 1:
+                                // Appeler regle deduction
+                                break;
+                            case 2:
+                                // Appeler back tracking
+                                break;
+                            case 3:
+                                System.out.println("Retour au menu principal...");
+                                break;
+                            default:
+                                System.out.println("Choix invalide. Veuillez réessayer.");
+                                continue;
+                        }
+                        break;
+                    }
                     break;
                 case 3:
                     afficherGrille();
@@ -86,7 +107,8 @@ public class ConsoleUI {
 
         while (true) {
             try {
-                sudoku = new Sudoku(scanner.nextInt());
+                this.taille = scanner.nextInt();
+                sudoku = new Sudoku(taille);
                 break;
             } catch (Exception e) {
                 System.out.println("Ce n'est pas un entier valide. Veuillez réessayer.");
@@ -156,8 +178,11 @@ public class ConsoleUI {
                 // Get cell value and apply color
                 Case c = sudoku.getGrille()[i][j];
                 Integer valeur = c.getValeur();
-
-                System.out.print(valeur + " ");
+                if(valeur == 0){
+                    System.out.print(". ");
+                } else {
+                    System.out.print(valeur + " ");
+                }
 
                 //String color = colorMatch.getOrDefault(c.getBlocId(), "\u001B[37m");
                 //System.out.print(color + valeur + " \u001B[0m");

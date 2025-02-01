@@ -1,18 +1,16 @@
 package Game;
 
-import Game.Grille;
-
 public class Sudoku {
     // Instancie une grille et un solveur
-    private Game.Grille grille;
+    private Grille grille;
+    private Solveur solveur;
 
     public Sudoku(int taille) {
         this.grille = new Grille(taille);
+        this.solveur = new Solveur();
     }
 
-    public Sudoku(int taille, Game.Grille grille) {
-        this.grille = grille;
-    }
+
 
     public Game.Case[][] getGrille() {
         return grille.getGrille();
