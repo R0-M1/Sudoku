@@ -31,4 +31,8 @@ public class Sudoku {
     public int getTaille() {
         return grille.getTaille();
     }
+
+    public List<String> getLog() {
+        return solveur.getLog();
+    }
 }

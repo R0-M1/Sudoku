@@ -11,16 +11,26 @@ public class Solveur {
     public Solveur(Grille grille) {
         this.grille = grille;
         this.taille = grille.getTaille();
+        this.log = new ArrayList<>();
     }
 
     public boolean solve(boolean backtracking, List<MethodeResolution> regles) {
-        // TODO commencer a enregistrer dans log
+        ajouterLog("Début de la résolution");
+
         this.regles = regles;
         solveRegles();
         if (backtracking) {
             solveBackTracking();
         }
-        return grille.isComplete();
+
+        boolean isComplete = grille.isComplete();
+        if (isComplete) {
+            ajouterLog("La grille est résolue !");
+        } else {
+            ajouterLog("La grille n'a pas pu être résolue.");
+        }
+
+        return isComplete;
     }
 
     public boolean solveBackTracking() {
@@ -31,6 +41,7 @@ public class Solveur {
                     Collections.shuffle(valeursPossibles);
                     for (Integer valeur : valeursPossibles) {
                         grille.setCase(row, col, valeur); // Essaye un chiffre
+                        ajouterLog("Essai de la valeur " + valeur + " en (" + row + ", " + col + ")");
 
                         if (grille.isValid() && solveBackTracking()) {
                             solveRegles();
@@ -38,6 +49,7 @@ public class Solveur {
                         }
 
                         grille.setCase(row, col, 0); // Annuler et revenir en arrière (BackTrack)
+                        ajouterLog("Retour arrière en (" + row + ", " + col + ")");
                     }
                     return false; // Aucun chiffre valide, retour arrière
                 }
@@ -49,6 +61,7 @@ public class Solveur {
     private void solveRegles() {
         // NOTE: peut etre bouclé dessus
         for (MethodeResolution m : regles) {
+            ajouterLog("Application des règles de résolution");
             switch (m) {
                 case ELIMINATION_DIRECTE:
                     solveEliminationDirecte();
@@ -72,6 +85,7 @@ public class Solveur {
                     List<Integer> possibles = calculerValeursPossibles(i, j);
                     if (possibles.size() == 1) {
                         currentCase.setValeur(possibles.iterator().next());
+                        ajouterLog("Elimination directe : valeur " + currentCase.getValeur() + " en (" + i + ", " + j + ")");
                     }
                 }
             }
@@ -80,6 +94,7 @@ public class Solveur {
 
     // Règle 2 : Unicité
     public void solveUnicite() {
+        // NOTE peut etre faire pareil pour les possibleLignes
         int taille = grille.getTaille();
 
         for (int num = 1; num <= taille; num++) {
@@ -95,12 +110,14 @@ public class Solveur {
                 }
                 if (count == 1) {
                     grille.getGrille()[i][possibleColumn].setValeur(num);
+                    ajouterLog("Unicité : valeur "+ num + " en (" + i + ", " + possibleColumn + ")");
                 }
             }
         }
     }
 
     // Règle 3 : Paires
+    // TODO Finir la méthode
     public void solvePaires() {
         int taille = grille.getTaille();
 
@@ -152,5 +169,15 @@ public class Solveur {
         }
 
         return possibles;
+    }
+
+    private void ajouterLog(String message) {
+        log.add(message);
+        System.out.println(message);  // TODO A enlever pour une version finale
+    }
+
+    // Accesseur pour récupérer le log
+    public List<String> getLog() {
+        return log;
     }
 }
