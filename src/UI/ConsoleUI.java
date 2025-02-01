@@ -28,35 +28,103 @@ public class ConsoleUI {
     }
 
     public ConsoleUI() {
-        this.taille = demanderTaille();
-        this.sudoku = new Sudoku(taille); // A changer plus tard, on instanciera un Sudoku / Multidoku et non une grille
+
     }
 
     public void start() {
-        while (!sudoku.isValid()) {
-            sudoku.initialiser();
-            afficherGrille();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("░██████╗██╗░░░██╗██████╗░░█████╗░██╗░░██╗██╗░░░██╗");
+        System.out.println("██╔════╝██║░░░██║██╔══██╗██╔══██╗██║░██╔╝██║░░░██║");
+        System.out.println("╚█████╗░██║░░░██║██║░░██║██║░░██║█████═╝░██║░░░██║");
+        System.out.println("░╚═══██╗██║░░░██║██║░░██║██║░░██║██╔═██╗░██║░░░██║");
+        System.out.println("██████╔╝╚██████╔╝██████╔╝╚█████╔╝██║░╚██╗╚██████╔╝");
+        System.out.println("╚═════╝░░╚═════╝░╚═════╝░░╚════╝░╚═╝░░╚═╝░╚═════╝░");
+
+
+        while (true) {
+            System.out.println("\033[1mChoisissez une option :\033[0m");
+            System.out.println("1. Rentrer une grille");
+            System.out.println("2. Choisir méthode de résolution");
+            System.out.println("3. Afficher le sudoku");
+            System.out.println("4. Afficher la suite d'opérations");
+            System.out.println("5. Générer une ou plusieurs grilles à partir d'une grille complète et d’un niveau de difficulté");
+            System.out.println("6. Quitter");
+
+            int choix = scanner.nextInt();
+            switch (choix) {
+                case 1:
+                    demanderTaille();
+                    System.out.println(taille);
+                    demanderGrille();
+                    break;
+                case 2:
+                    // Implement method of resolution here
+                    break;
+                case 3:
+                    afficherGrille();
+                    break;
+                case 4:
+                    // Implement the show operations sequence here
+                    break;
+                case 5:
+                    // Implement generating grids from a complete grid with difficulty level here
+                    break;
+                case 6:
+                    System.out.println("Au revoir!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Choix invalide. Veuillez réessayer.");
+                    break;
+            }
         }
-        System.out.println("valid");
     }
 
-    private void menu() {
-        // TODO affiche le menu des pages et permet de faire un choix
-    }
-
-    private int demanderTaille() {
+    private void demanderTaille() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choisissez une taille de grille :");
 
         while (true) {
             try {
-                return scanner.nextInt();
+                sudoku = new Sudoku(scanner.nextInt());
+                break;
             } catch (Exception e) {
                 System.out.println("Ce n'est pas un entier valide. Veuillez réessayer.");
                 scanner.nextLine();
             }
         }
     }
+
+    private void demanderGrille() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Veuillez entrer les valeurs de la grille (entrez un nombre entre 1 et " + taille + ", ou 0 pour une case vide) :");
+
+        // Loop over each row and column to get the values
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                int value;
+                while (true) {
+                    System.out.print("Entrez la valeur pour la case [" + (i + 1) + "][" + (j + 1) + "]: ");
+                    try {
+                        value = scanner.nextInt();
+                        // Check if the value is within the valid range
+                        if (value >= 0 && value <= taille) {
+                            break;  // Valid value, exit the loop
+                        } else {
+                            System.out.println("La valeur doit être entre 0 et " + taille + ". Veuillez réessayer.");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Entrée invalide. Veuillez entrer un nombre valide.");
+                        scanner.nextLine();  // Clear the buffer
+                    }
+                }
+                // Set the value in the Sudoku grid (sudoku object is assumed to have a method for setting the cell value)
+                sudoku.getGrille()[i][j].setValeur(value);
+            }
+        }
+        System.out.println("Grille entrée avec succès.");
+    }
+
 
     private void afficherGrille() {
         int blockHeight = 1, blockWidth = taille; // Defaults
@@ -88,12 +156,13 @@ public class ConsoleUI {
                 // Get cell value and apply color
                 Case c = sudoku.getGrille()[i][j];
                 Integer valeur = c.getValeur();
+
                 System.out.print(valeur + " ");
 
                 //String color = colorMatch.getOrDefault(c.getBlocId(), "\u001B[37m");
                 //System.out.print(color + valeur + " \u001B[0m");
             }
-            System.out.println(); // New line after row
+            System.out.println();
         }
     }
 

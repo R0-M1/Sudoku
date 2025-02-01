@@ -10,6 +10,10 @@ public class Sudoku {
         this.grille = new Grille(taille);
     }
 
+    public Sudoku(int taille, Game.Grille grille) {
+        this.grille = grille;
+    }
+
     public Game.Case[][] getGrille() {
         return grille.getGrille();
     }
