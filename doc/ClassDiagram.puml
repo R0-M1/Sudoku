@@ -26,13 +26,19 @@ Sudoku --> Grille
 Sudoku --> Solveur
 
 class Solveur {
+-Grille grille
 
++boolean solve()
+List<Integer> trouverCandidats(int row, int col)
 }
 
+Solveur .> Grille
+
+
 class Grille {
-Case[][] grille
-Bloc[] blocs
-int taille
+-Case[][] grille
+-Bloc[] blocs
+-int taille
 
 Case[][] getGrille()
 boolean isValid()

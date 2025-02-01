@@ -7,10 +7,12 @@ public class Sudoku {
 
     public Sudoku(int taille) {
         this.grille = new Grille(taille);
-        this.solveur = new Solveur();
+        this.solveur = new Solveur(grille);
     }
 
-
+    public boolean solve() {
+        return solveur.solve();
+    }
 
     public Game.Case[][] getGrille() {
         return grille.getGrille();
@@ -22,5 +24,9 @@ public class Sudoku {
 
     public void initialiser() {
         grille.genererGrille();
+    }
+
+    public int getTaille() {
+        return grille.getTaille();
     }
 }

@@ -56,6 +56,10 @@ public class Grille {
         return grille;
     }
 
+    public ArrayList<Bloc> getBlocs() {
+        return blocs;
+    }
+
     public int getTaille() {
         return taille;
     }
