@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Grille {
     private int taille;
-    private ArrayList<Bloc> blocs;
+    //private ArrayList<Bloc> blocs;
 
     public Grille(int taille) {
         this.taille = taille;

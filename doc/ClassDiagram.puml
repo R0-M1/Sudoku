@@ -1,0 +1,55 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+class ConsoleUI {
+Sodoku sudoku
+
+
++start()
+-afficherGrille()
+}
+
+class GUI {
+
+}
+
+GUI --> Sudoku
+ConsoleUI --> Sudoku
+
+Class Sudoku {
+
+}
+
+Sudoku --> Grille
+Sudoku --> Solveur
+
+class Solveur {
+
+}
+
+class Grille {
+Case[][] grille
+Bloc[] bloc
+Bloc[] col
+Bloc[] row
+int taille
+
+Case[][] getGrille()
+
+}
+
+Grille o-- Case
+Grille o-- Bloc
+
+class Bloc {
+Case[] cases
+}
+
+
+class Case {
+int (x,y)
+int valeur
+}
+
+@enduml
