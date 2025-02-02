@@ -10,8 +10,10 @@ import Game.*;
 public class ConsoleUI {
     private static final Map<Integer, String> charMap = createCharMap(); // pour le multidoku avec blocs de couleur
     private Sudoku sudoku;
+
     /**
      * Initialise la correspondance entre les chiffres et les caractères utilisés pour l'affichage.
+     *
      * @return Une map associant chaque chiffre à son caractère correspondant.
      */
     private static Map<Integer, String> createCharMap() {
@@ -35,6 +37,7 @@ public class ConsoleUI {
         map.put(16, "G");
         return map;
     }
+
     /**
      * Démarre l'interface utilisateur en mode console et affiche le menu principal.
      */
@@ -181,6 +184,7 @@ public class ConsoleUI {
             }
         }
     }
+
     /**
      * Demande à l'utilisateur de modifier les caractères utilisés pour représenter les chiffres du Sudoku.
      */
@@ -217,39 +221,17 @@ public class ConsoleUI {
 
 
     }
+
     /**
      * Demande la taille du Sudoku et initialise un Sudoku ou un Multidoku en conséquence.
      */
     private void demanderTaille() {
         Scanner scanner = new Scanner(System.in);
-        String type = "";
-        while (true) {
-            System.out.println("Choisissez un type de Sudoku :");
-            System.out.println("1. Sudoku");
-            System.out.println("2. Multidoku (NE FONCTIONNE PAS)");
-
-            switch (scanner.nextInt()) {
-                case 1:
-                    type = "Sudoku";
-                    break;
-                case 2:
-                    type = "Multidoku";
-                    break;
-                default:
-                    System.out.println("Choix invalide. Veuillez réessayer.");
-                    continue;
-            }
-            break;
-        }
         System.out.println("Choisissez une taille de grille :");
 
         while (true) {
             try {
-                if (type.equals("Sudoku")) {
-                    sudoku = new Sudoku(scanner.nextInt());
-                } else {
-                    sudoku = new Multidoku(scanner.nextInt());
-                }
+                sudoku = new Sudoku(scanner.nextInt());
                 break;
             } catch (Exception e) {
                 System.out.println("Ce n'est pas un entier valide. Veuillez réessayer.");
@@ -337,6 +319,7 @@ public class ConsoleUI {
             }
         }
     }
+
     /**
      * Affiche la grille de Sudoku dans la console.
      */
