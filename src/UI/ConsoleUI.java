@@ -4,6 +4,9 @@ import java.util.*;
 
 import Game.*;
 
+/**
+ * Interface utilisateur en mode console pour le jeu de Sudoku.
+ */
 public class ConsoleUI {
     private static final Map<Integer, String> charMap = createCharMap(); // pour le multidoku avec blocs de couleur
     private Sudoku sudoku;
@@ -351,11 +354,7 @@ public class ConsoleUI {
 
                 Case c = sudoku.getGrille()[i][j];
                 Integer valeur = c.getValeur();
-                if (valeur == 0) {
-                    System.out.print(" ");
-                } else {
-                    System.out.print(valeur + " ");
-                }
+                System.out.print(charMap.get(valeur) + " ");
             }
             System.out.println();
         }
