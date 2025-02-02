@@ -15,12 +15,12 @@ public class Solveur {
     }
 
     public boolean solve(boolean backtracking, List<MethodeResolution> regles) {
+        this.log.clear();
         ajouterLog("Début de la résolution");
         updateAllValeursPossibles();
 
         this.regles = regles;
         solveRegles();
-        solveBackTracking();
         if (backtracking) {
             solveBackTracking();
         }

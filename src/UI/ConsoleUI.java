@@ -2,10 +2,7 @@ package UI;
 
 import java.util.*;
 
-import Game.Case;
-import Game.Difficulte;
-import Game.Sudoku;
-import Game.MethodeResolution;
+import Game.*;
 
 // TODO Interface textuelle dans la console
 public class ConsoleUI {
@@ -115,7 +112,11 @@ public class ConsoleUI {
                     }
                     break;
                 case 3:
-                    afficherGrille();
+                    if (sudoku != null) {
+                        afficherGrille();
+                    } else {
+                        System.out.println("Aucun sudoku initialisé !");
+                    }
                     break;
                 case 4:
                     for (String log : sudoku.getLog()) {
@@ -167,6 +168,23 @@ public class ConsoleUI {
 
     private void demanderTaille() {
         Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Choisissez un type de Sudoku :");
+            System.out.println("1. Sudoku");
+            System.out.println("2. Multidoku");
+            String type;
+            switch (scanner.nextInt()) {
+                case 1:
+                    type = "Sudoku";
+                    break;
+                case 2:
+                    type = "Multidoku";
+                    break;
+                default:
+                    System.out.println("Choix invalide. Veuillez réessayer.");
+            }
+            break;
+        }
         System.out.println("Choisissez une taille de grille :");
 
         while (true) {
@@ -258,6 +276,9 @@ public class ConsoleUI {
     }
 
     private void afficherGrille() {
+        if (sudoku instanceof Multidoku) {
+            System.out.println("test");
+        }
         int blockHeight = 1, blockWidth = sudoku.getTaille();
 
         for (int h = 1; h <= sudoku.getTaille(); h++) {

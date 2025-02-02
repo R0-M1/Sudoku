@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 public class Sudoku {
-    private Grille grille;
-    private Solveur solveur;
+    protected Grille grille;
+    protected Solveur solveur;
 
     public Sudoku(int taille) {
         this.grille = new Grille(taille);
@@ -49,7 +49,7 @@ public class Sudoku {
         }
     }
 
-    public void supprimerCases(int nb) {
+    protected void supprimerCases(int nb) {
         Random rand = new Random();
         int supprimees = 0;
 
