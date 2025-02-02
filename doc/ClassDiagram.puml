@@ -2,60 +2,98 @@
 'https://plantuml.com/class-diagram
 skinparam classAttributeIconSize 0
 
-class ConsoleUI {
-Sodoku sudoku
-
-
-+start()
--afficherGrille()
+package UI {
+    class ConsoleUI {
+        - colorMatch: Map<Integer, String>
+        - sudoku: Sudoku
+        + start(): void
+        - demanderTaille(): void
+        - demanderGrille(): void
+        - initGrille(): void
+        - afficherGrille(): void
+    }
+    
+    class GUI {
+        
+    }
 }
 
-class GUI {
+UI -> Game.Sudoku
 
+package Game {
+    class Case {
+        - Integer valeur
+        - int blocId
+        - Set<Integer> valeursPossibles
+        
+        + Case(int blocId, Integer valeur)
+        + Integer getValeur()
+        + int getBlocId()
+        + void setValeur(Integer valeur)
+        + Set<Integer> getValeursPossibles()
+        + void setValeursPossibles(Set<Integer> valeursPossibles)
+        + String toString()
+    }
+
+    class Bloc {
+        - int taille
+        - ArrayList<Case> cases
+
+        + Bloc(int taille, ArrayList<Case> cases)
+        + boolean validerBloc()
+        + ArrayList<Case> getCases()
+    }
+
+    class Grille {
+        - Case[][] grille
+        - final int taille
+        - ArrayList<Bloc> blocs
+        
+        + Grille(int taille)
+        + Case[][] getGrille()
+        + ArrayList<Bloc> getBlocs()
+        + int getTaille()
+        + void genererGrille()
+        + void setCase(int row, int col, int valeur)
+        + boolean isValid()
+        + boolean isComplete()
+    }
+
+    class Sudoku {
+        - Grille grille
+        - Solveur solveur
+
+        + Sudoku(int taille)
+        + boolean solve(List<MethodeResolution> methodes)
+        + Case[][] getGrille()
+        + boolean isValid()
+        + void initialiser()
+        + int getTaille()
+        + List<String> getLog()
+    }
+
+    class Solveur {
+        - Grille grille
+        - int taille
+        - List<String> log
+        - List<MethodeResolution> regles
+
+        + Solveur(Grille grille)
+        + boolean solve(boolean backtracking, List<MethodeResolution> regles)
+        + boolean solveBackTracking()
+        + List<String> getLog()
+    }
+
+    enum MethodeResolution {
+    }
+
+  
+    Grille "1" *-- "N" Case
+    Grille "1" *-- "N" Bloc
+    Bloc .> Case
+    Sudoku -> Grille
+    Sudoku -> Solveur
+    Solveur ..>  Grille
+    Solveur *-- MethodeResolution
 }
-
-GUI --> Sudoku
-ConsoleUI --> Sudoku
-ConsoleUI ..> Case
-
-Class Sudoku {
-
-}
-
-Sudoku --> Grille
-Sudoku --> Solveur
-
-class Solveur {
--Grille grille
-
-+boolean solve()
-List<Integer> trouverCandidats(int row, int col)
-}
-
-Solveur .> Grille
-
-
-class Grille {
--Case[][] grille
--Bloc[] blocs
--int taille
-
-Case[][] getGrille()
-boolean isValid()
-}
-
-Grille o-- Case
-Grille o-- Bloc
-
-class Bloc {
-Case[] cases
-}
-
-
-class Case {
-int idBloc
-Integer valeur
-// boolean fixed
-}
-
 @enduml
