@@ -10,7 +10,10 @@ import Game.*;
 public class ConsoleUI {
     private static final Map<Integer, String> charMap = createCharMap(); // pour le multidoku avec blocs de couleur
     private Sudoku sudoku;
-
+    /**
+     * Initialise la correspondance entre les chiffres et les caractères utilisés pour l'affichage.
+     * @return Une map associant chaque chiffre à son caractère correspondant.
+     */
     private static Map<Integer, String> createCharMap() {
         Map<Integer, String> map = new HashMap<>();
         map.put(0, ".");
@@ -32,7 +35,9 @@ public class ConsoleUI {
         map.put(16, "G");
         return map;
     }
-
+    /**
+     * Démarre l'interface utilisateur en mode console et affiche le menu principal.
+     */
     public void start() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("░██████╗██╗░░░██╗██████╗░░█████╗░██╗░░██╗██╗░░░██╗");
@@ -176,7 +181,9 @@ public class ConsoleUI {
             }
         }
     }
-
+    /**
+     * Demande à l'utilisateur de modifier les caractères utilisés pour représenter les chiffres du Sudoku.
+     */
     private void demanderCharMap() {
         Scanner scanner = new Scanner(System.in);
         boolean continuer = true;
@@ -210,7 +217,9 @@ public class ConsoleUI {
 
 
     }
-
+    /**
+     * Demande la taille du Sudoku et initialise un Sudoku ou un Multidoku en conséquence.
+     */
     private void demanderTaille() {
         Scanner scanner = new Scanner(System.in);
         String type = "";
@@ -328,7 +337,9 @@ public class ConsoleUI {
             }
         }
     }
-
+    /**
+     * Affiche la grille de Sudoku dans la console.
+     */
     private void afficherGrille() {
         int blockHeight = 1, blockWidth = sudoku.getTaille();
 

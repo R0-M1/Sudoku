@@ -7,13 +7,21 @@ public class Solveur {
     private int taille;
     private List<String> log;
     private List<MethodeResolution> regles;
-
+    /**
+     * Constructeur du solveur.
+     * @param grille La grille à résoudre.
+     */
     public Solveur(Grille grille) {
         this.grille = grille;
         this.taille = grille.getTaille();
         this.log = new ArrayList<>();
     }
-
+    /**
+     * Résout la grille en utilisant les règles et, si activé, le backtracking.
+     * @param backtracking Indique si l'algorithme de backtracking doit être utilisé.
+     * @param regles Liste des règles de résolution à appliquer.
+     * @return true si la grille est complètement résolue, false sinon.
+     */
     public boolean solve(boolean backtracking, List<MethodeResolution> regles) {
         this.log.clear();
         ajouterLog("Début de la résolution");
@@ -34,7 +42,10 @@ public class Solveur {
 
         return isComplete;
     }
-
+    /**
+     * Applique l'algorithme de backtracking pour résoudre la grille.
+     * @return true si la grille est résolue, false sinon.
+     */
     public boolean solveBackTracking() {
         for (int row = 0; row < taille; row++) {
             for (int col = 0; col < taille; col++) {
@@ -62,7 +73,9 @@ public class Solveur {
         }
         return true; // Sudoku résolu
     }
-
+    /**
+     * Applique les règles de résolution pour affiner la solution de la grille.
+     */
     private void solveRegles() {
         boolean modifie;
         do {
@@ -83,7 +96,10 @@ public class Solveur {
             }
         } while (modifie);
     }
-
+    /**
+     * Applique la règle d'élimination directe.
+     * @return true si une modification a été effectuée, false sinon.
+     */
     // Règle 1 : Elimination directe
     public boolean solveEliminationDirecte() {
         boolean modification = false;
@@ -104,7 +120,10 @@ public class Solveur {
         }
         return modification;
     }
-
+    /**
+     * Applique la règle de placement forcé.
+     * @return true si une modification a été effectuée, false sinon.
+     */
     // Règle 2 : Placement Forcé
     private boolean solvePlacementForce() {
         boolean modification = false;
@@ -150,7 +169,10 @@ public class Solveur {
         }
         return modification;
     }
-
+    /**
+     * Applique la règle des paires.
+     * @return true si une modification a été effectuée, false sinon.
+     */
     // Règle 3 : Paires
     private boolean solvePaires() {
         boolean modification = false;
@@ -317,8 +339,11 @@ public class Solveur {
     }
 
 
-
-    // Détermine les valeurs possibles pour une case en appliquant des contraintes
+    /**
+     * Met à jour les valeurs possibles pour une case donnée.
+     * @param row Indice de la ligne.
+     * @param col Indice de la colonne.
+     */
     private void updateValeursPossibles(int row, int col) {
         Case currentCase = grille.getGrille()[row][col];
         Set<Integer> valeursPossibles = new HashSet<>();
@@ -341,7 +366,9 @@ public class Solveur {
 
         currentCase.setValeursPossibles(valeursPossibles);
     }
-
+    /**
+     * Met à jour les valeurs possibles pour toutes les cases de la grille.
+     */
     private void updateAllValeursPossibles() {
         for (int i = 0; i < taille; i++) {
             for (int j = 0; j < taille; j++) {
@@ -351,12 +378,18 @@ public class Solveur {
             }
         }
     }
-
+    /**
+     * Ajoute un message au log.
+     * @param message Message à ajouter.
+     */
     private void ajouterLog(String message) {
         log.add(message);
     }
 
-    // Accesseur pour récupérer le log
+    /**
+     * Retourne le journal des étapes de résolution.
+     * @return Liste des messages de log.
+     */
     public List<String> getLog() {
         return log;
     }

@@ -7,21 +7,34 @@ import java.util.Random;
 public class Sudoku {
     protected Grille grille;
     protected Solveur solveur;
-
+    /**
+     * Initialise un Sudoku avec une grille vide de la taille spécifiée.
+     * @param taille La taille de la grille (ex: 9 pour un Sudoku classique).
+     */
     public Sudoku(int taille) {
         this.grille = new Grille(taille);
         this.solveur = new Solveur(grille);
     }
-
+    /**
+     * Résout la grille en utilisant les méthodes de résolution spécifiées.
+     * @param methodes Liste des méthodes de résolution à appliquer.
+     * @return true si la grille est résolue, false sinon.
+     */
     public boolean solve(List<MethodeResolution> methodes) {
         List<MethodeResolution> regles = new java.util.ArrayList<>(List.copyOf(methodes));
         return solveur.solve(regles.remove(MethodeResolution.BACKTRACKING), regles);
     }
-
+    /**
+     * Retourne la grille actuelle sous forme de tableau 2D.
+     * @return Tableau de cases représentant la grille.
+     */
     public Game.Case[][] getGrille() {
         return grille.getGrille();
     }
-
+    /**
+     * Génère un Sudoku en fonction du niveau de difficulté spécifié.
+     * @param difficulte Niveau de difficulté (FACILE, MOYEN, DIFFICILE).
+     */
     public void generer(Difficulte difficulte) {
         solveur = new Solveur(grille);
         solveur.solve(true, new ArrayList<>());
@@ -40,7 +53,10 @@ public class Sudoku {
                 break;
         }
     }
-
+    /**
+     * Supprime un certain nombre de cases de la grille tout en maintenant sa validité.
+     * @param nb Nombre de cases à supprimer.
+     */
     protected void supprimerCases(int nb) {
         Random rand = new Random();
         int supprimees = 0;
@@ -61,11 +77,17 @@ public class Sudoku {
             }
         }
     }
-
+    /**
+     * Retourne la taille de la grille.
+     * @return Taille de la grille.
+     */
     public int getTaille() {
         return grille.getTaille();
     }
-
+    /**
+     * Retourne les logs de résolution du Sudoku.
+     * @return Liste des logs de résolution.
+     */
     public List<String> getLog() {
         return solveur.getLog();
     }
