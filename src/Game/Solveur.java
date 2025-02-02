@@ -66,12 +66,12 @@ public class Solveur {
     private void solveRegles() {
         boolean modifie;
         do {
-            modifie = false;  // On réinitialise la modification à chaque passage dans la boucle
+            modifie = false; // On réinitialise la modification à chaque passage dans la boucle
             // Appliquer chaque règle et mettre à jour 'modifie' si une règle a changé quelque chose
             for (MethodeResolution m : regles) {
                 switch (m) {
                     case ELIMINATION_DIRECTE:
-                        modifie |= solveEliminationDirecte();  // Si la règle modifie la grille, on l'indique
+                        modifie |= solveEliminationDirecte(); // Si la règle modifie la grille, on l'indique
                         break;
                     case PLACEMENT_FORCE:
                         modifie |= solvePlacementForce();
@@ -147,7 +147,7 @@ public class Solveur {
                     updateAllValeursPossibles();
                 }
             }
-        } // TODO peut etre rajouter pour les blocs
+        }
         return modification;
     }
 
@@ -172,7 +172,7 @@ public class Solveur {
         return modification;
     }
 
-    // Vérifier les paires nues dans une ligne
+    // Vérifier les paires dans une ligne
     private boolean solvePairesInLine(int row) {
         boolean modification = false;
         List<Case> emptyCases = new ArrayList<>();
@@ -220,7 +220,7 @@ public class Solveur {
         return modification;
     }
 
-    // Vérifier les paires nues dans une colonne
+    // Vérifier les paires dans une colonne
     private boolean solvePairesInColumn(int col) {
         boolean modification = false;
         List<Case> emptyCases = new ArrayList<>();
@@ -268,7 +268,7 @@ public class Solveur {
         return modification;
     }
 
-    // Vérifier les paires nues dans un bloc
+    // Vérifier les paires dans un bloc
     private boolean solvePairesInBloc(int blocId) {
         boolean modification = false;
         List<Case> emptyCases = new ArrayList<>();
@@ -354,7 +354,6 @@ public class Solveur {
 
     private void ajouterLog(String message) {
         log.add(message);
-        System.out.println(message);  // TODO A enlever pour une version finale
     }
 
     // Accesseur pour récupérer le log

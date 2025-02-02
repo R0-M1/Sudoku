@@ -1,8 +1,6 @@
 package Game;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
+import java.util.*;
 
 public class Grille {
     private Case[][] grille;
@@ -17,8 +15,7 @@ public class Grille {
 
         for (int i = 0; i < taille; i++) {
             for (int j = 0; j < taille; j++) {
-                int blocId = calculateBlocId(i, j, taille);
-
+                int blocId = calculateBlocId(i, j);
                 grille[i][j] = new Case(blocId, 0);
 
                 if (blocs.size() <= blocId) {
@@ -32,7 +29,7 @@ public class Grille {
         }
     }
 
-    private int calculateBlocId(int i, int j, int taille) {
+    private int calculateBlocId(int i, int j) {
         int blockHeight = 1;
         int blockWidth = taille;
 
@@ -51,7 +48,6 @@ public class Grille {
         return (i / blockHeight) * (taille / blockWidth) + (j / blockWidth);
     }
 
-
     public Case[][] getGrille() {
         return grille;
     }
@@ -62,15 +58,6 @@ public class Grille {
 
     public int getTaille() {
         return taille;
-    }
-
-    public void genererGrille() {
-        Random rand = new Random();
-        for (int i = 0; i < taille; i++) {
-            for (int j = 0; j < taille; j++) {
-                grille[i][j].setValeur(rand.nextInt(taille)+1);
-            }
-        }
     }
 
     public void setCase(int row, int col, int valeur) {

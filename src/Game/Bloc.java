@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Bloc {
-    protected int taille;
+    private int taille;
     private ArrayList<Case> cases;
 
     public Bloc(int taille, ArrayList<Case> cases) {

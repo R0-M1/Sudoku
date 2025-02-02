@@ -4,22 +4,29 @@ import java.util.*;
 
 import Game.*;
 
-// TODO Interface textuelle dans la console
 public class ConsoleUI {
-    private static final Map<Integer, String> colorMatch = createColorMap(); // pour le multidoku avec blocs de couleur
+    private static final Map<Integer, String> charMap = createCharMap(); // pour le multidoku avec blocs de couleur
     private Sudoku sudoku;
 
-    private static Map<Integer, String> createColorMap() {
+    private static Map<Integer, String> createCharMap() {
         Map<Integer, String> map = new HashMap<>();
-        map.put(0, "\u001B[31m"); // Red
-        map.put(1, "\u001B[32m"); // Green
-        map.put(2, "\u001B[34m"); // Blue
-        map.put(3, "\u001B[35m"); // Purple
-        map.put(4, "\u001B[36m"); // Cyan
-        map.put(5, "\u001B[33m"); // Yellow
-        map.put(6, "\u001B[91m"); // Bright Red
-        map.put(7, "\u001B[92m"); // Bright Green
-        map.put(8, "\u001B[94m"); // Bright Blue
+        map.put(0, ".");
+        map.put(1, "1");
+        map.put(2, "2");
+        map.put(3, "3");
+        map.put(4, "4");
+        map.put(5, "5");
+        map.put(6, "6");
+        map.put(7, "7");
+        map.put(8, "8");
+        map.put(9, "9");
+        map.put(10, "A");
+        map.put(11, "B");
+        map.put(12, "C");
+        map.put(13, "D");
+        map.put(14, "E");
+        map.put(15, "F");
+        map.put(16, "G");
         return map;
     }
 
@@ -39,9 +46,10 @@ public class ConsoleUI {
             System.out.println("2. Choisir méthode de résolution");
             System.out.println("3. Afficher le sudoku");
             System.out.println("4. Afficher la suite d'opérations");
-            System.out.println("5. Générer une ou plusieurs grilles à partir d'une grille complète et d’un niveau de difficulté");
+            System.out.println("5. Générer une grille en fonction d’un niveau de difficulté");
             System.out.println("6. Grilles de test");
-            System.out.println("7. Quitter");
+            System.out.println("7. Modifier les caractères affichés");
+            System.out.println("8. Quitter");
 
             int choix = scanner.nextInt();
             switch (choix) {
@@ -92,14 +100,11 @@ public class ConsoleUI {
                                 }
                                 continue;
                             case 5:
-                                long startTime = System.nanoTime(); // TODO A enlever
                                 if (sudoku.solve(methodes)) {
                                     System.out.println("Sudoku résolu !");
                                 } else {
                                     System.out.println("Aucune solution trouvée");
                                 }
-                                long endTime = System.nanoTime(); // TODO A enlever
-                                System.out.println(endTime - startTime); // TODO A enlever
                                 break;
                             case 6:
                                 System.out.println("Retour au menu principal...");
@@ -153,9 +158,12 @@ public class ConsoleUI {
                     break;
                 case 6:
                     sudoku = new Sudoku(9);
-                    initGrille(); // TODO fonction de test a supprimer
+                    initGrille();
                     break;
                 case 7:
+                    demanderCharMap();
+                    break;
+                case 8:
                     System.out.println("Au revoir!");
                     System.exit(0);
                     break;
@@ -166,13 +174,48 @@ public class ConsoleUI {
         }
     }
 
+    private void demanderCharMap() {
+        Scanner scanner = new Scanner(System.in);
+        boolean continuer = true;
+
+        while (continuer) {
+            System.out.println("\nMap actuelle:");
+            for (Map.Entry<Integer, String> entry : charMap.entrySet()) {
+                System.out.println(entry.getKey() + " => " + entry.getValue());
+            }
+
+            System.out.println("Entrez l'index que vous souhaitez modifier: ");
+            int index = scanner.nextInt();
+
+            System.out.println("Entrez le nouveau caractère pour l'index " + index + ": ");
+            String newChar = scanner.next();
+
+            charMap.put(index, newChar);
+            System.out.println("Modification effectuée !");
+
+            System.out.print("\nVoulez-vous modifier un autre caractère ? (o/n) : ");
+            String reponse = scanner.next().toLowerCase();
+            if (!reponse.equals("o")) {
+                continuer = false;
+            }
+        }
+
+        System.out.println("\nMap finale:");
+        for (Map.Entry<Integer, String> entry : charMap.entrySet()) {
+            System.out.println(entry.getKey() + " => " + entry.getValue());
+        }
+
+
+    }
+
     private void demanderTaille() {
         Scanner scanner = new Scanner(System.in);
+        String type = "";
         while (true) {
             System.out.println("Choisissez un type de Sudoku :");
             System.out.println("1. Sudoku");
-            System.out.println("2. Multidoku");
-            String type;
+            System.out.println("2. Multidoku (NE FONCTIONNE PAS)");
+
             switch (scanner.nextInt()) {
                 case 1:
                     type = "Sudoku";
@@ -182,6 +225,7 @@ public class ConsoleUI {
                     break;
                 default:
                     System.out.println("Choix invalide. Veuillez réessayer.");
+                    continue;
             }
             break;
         }
@@ -189,7 +233,11 @@ public class ConsoleUI {
 
         while (true) {
             try {
-                sudoku = new Sudoku(scanner.nextInt());
+                if (type.equals("Sudoku")) {
+                    sudoku = new Sudoku(scanner.nextInt());
+                } else {
+                    sudoku = new Multidoku(scanner.nextInt());
+                }
                 break;
             } catch (Exception e) {
                 System.out.println("Ce n'est pas un entier valide. Veuillez réessayer.");
@@ -229,45 +277,48 @@ public class ConsoleUI {
     }
 
     private void initGrille() {
-//        int[][] initialValues = {
-//                {3, 6, 7, 0, 0, 9, 0, 5, 8},
-//                {0, 2, 0, 5, 0, 1, 7, 0, 0},
-//                {5, 9, 0, 8, 0, 7, 0, 2, 6},
-//                {0, 3, 9, 0, 0, 0, 2, 1, 4},
-//                {6, 4, 8, 1, 7, 2, 9, 0, 5},
-//                {1, 5, 2, 0, 9, 4, 0, 6, 7},
-//                {4, 1, 6, 9, 8, 3, 5, 7, 2},
-//                {2, 0, 3, 7, 1, 0, 6, 4, 9},
-//                {0, 7, 5, 2, 0, 0, 0, 8, 1}
-//        };
+        Scanner scanner = new Scanner(System.in);
+        int[][] initialValues;
 
+        while (true) {
+            System.out.println("Choisissez votre grille de test :");
+            System.out.println("1. Grille simple (Résolution par règles de déduction possible)");
+            System.out.println("2. Grille complexe (Résolution par backtracking obligatoire)");
 
-        int[][] initialValues = {
-                {0, 0, 0, 6, 7, 2, 0, 5, 0},
-                {5, 0, 0, 4, 3, 9, 0, 2, 8},
-                {0, 2, 0, 0, 0, 0, 3, 0, 0},
-                {0, 0, 0, 0, 9, 0, 5, 0, 6},
-                {0, 0, 5, 7, 0, 4, 9, 1, 0},
-                {9, 0, 1, 0, 0, 3, 8, 0, 0},
-                {0, 9, 2, 3, 1, 7, 0, 8, 5},
-                {8, 5, 0, 9, 2, 6, 0, 0, 1},
-                {0, 0, 0, 8, 4, 5, 2, 0, 0}
-        };
+            switch (scanner.nextInt()) {
+                case 1:
+                    initialValues = new int[][]{
+                            {3, 6, 7, 0, 0, 9, 0, 5, 8},
+                            {0, 2, 0, 5, 0, 1, 7, 0, 0},
+                            {5, 9, 0, 8, 0, 7, 0, 2, 6},
+                            {0, 3, 9, 0, 0, 0, 2, 1, 4},
+                            {6, 4, 8, 1, 7, 2, 9, 0, 5},
+                            {1, 5, 2, 0, 9, 4, 0, 6, 7},
+                            {4, 1, 6, 9, 8, 3, 5, 7, 2},
+                            {2, 0, 3, 7, 1, 0, 6, 4, 9},
+                            {0, 7, 5, 2, 0, 0, 0, 8, 1}
+                    };
+                    break;
+                case 2:
+                    initialValues = new int[][]{
+                            {0, 0, 0, 6, 7, 2, 0, 5, 0},
+                            {5, 0, 0, 4, 3, 9, 0, 2, 8},
+                            {0, 2, 0, 0, 0, 0, 3, 0, 0},
+                            {0, 0, 0, 0, 9, 0, 5, 0, 6},
+                            {0, 0, 5, 7, 0, 4, 9, 1, 0},
+                            {9, 0, 1, 0, 0, 3, 8, 0, 0},
+                            {0, 9, 2, 3, 1, 7, 0, 8, 5},
+                            {8, 5, 0, 9, 2, 6, 0, 0, 1},
+                            {0, 0, 0, 8, 4, 5, 2, 0, 0}
+                    };
+                    break;
+                default:
+                    System.out.println("Choix invalide. Veuillez réessayer.");
+                    continue;
+            }
+            break;
+        }
 
-
-//        int[][] initialValues = {
-//                {0, 0, 7, 0, 8, 0, 0, 0, 0},
-//                {4, 0, 0, 0, 0, 0, 0, 2, 0},
-//                {0, 0, 6, 0, 0, 9, 0, 1, 0},
-//                {0, 0, 0, 0, 0, 6, 0, 0, 9},
-//                {5, 7, 0, 0, 0, 0, 0, 0, 8},
-//                {0, 9, 0, 0, 5, 3, 0, 0, 0},
-//                {0, 0, 0, 5, 0, 0, 2, 0, 0},
-//                {2, 0, 0, 9, 0, 0, 0, 7, 0},
-//                {0, 0, 9, 2, 0, 7, 6, 8, 0}
-//        };
-
-        // Set values using setValeur()
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 sudoku.getGrille()[i][j].setValeur(initialValues[i][j]);
@@ -276,9 +327,6 @@ public class ConsoleUI {
     }
 
     private void afficherGrille() {
-        if (sudoku instanceof Multidoku) {
-            System.out.println("test");
-        }
         int blockHeight = 1, blockWidth = sudoku.getTaille();
 
         for (int h = 1; h <= sudoku.getTaille(); h++) {
@@ -304,16 +352,13 @@ public class ConsoleUI {
                 Case c = sudoku.getGrille()[i][j];
                 Integer valeur = c.getValeur();
                 if (valeur == 0) {
-                    System.out.print(". ");
+                    System.out.print(" ");
                 } else {
                     System.out.print(valeur + " ");
                 }
-
-                // Pour l'affichage avec de la couleur
-                //String color = colorMatch.getOrDefault(c.getBlocId(), "\u001B[37m");
-                //System.out.print(color + valeur + " \u001B[0m");
             }
             System.out.println();
         }
+
     }
 }

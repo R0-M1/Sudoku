@@ -22,14 +22,6 @@ public class Sudoku {
         return grille.getGrille();
     }
 
-    public boolean isValid() {
-        return grille.isValid();
-    }
-
-    public void initialiser() {
-        grille.genererGrille();
-    }
-
     public void generer(Difficulte difficulte) {
         solveur = new Solveur(grille);
         solveur.solve(true, new ArrayList<>());
