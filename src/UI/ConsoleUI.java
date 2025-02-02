@@ -57,7 +57,7 @@ public class ConsoleUI {
                         System.out.println("\033[1mChoisissez une méthode de résolution :\033[0m");
                         System.out.println("Méthodes sélectionnées : " + (methodes.isEmpty() ? "Aucune" : methodes));
                         System.out.println("1. Par règle de déduction : Elimination directe " + (methodes.contains(MethodeResolution.ELIMINATION_DIRECTE) ? "✓" : ""));
-                        System.out.println("2. Par règle de déduction : Unicité " + (methodes.contains(MethodeResolution.UNICITE) ? "✓" : ""));
+                        System.out.println("2. Par règle de déduction : Unicité " + (methodes.contains(MethodeResolution.PLACEMENT_FORCE) ? "✓" : ""));
                         System.out.println("3. Par règle de déduction : Paires " + (methodes.contains(MethodeResolution.PAIRES) ? "✓" : ""));
                         System.out.println("4. Par retour sur trace " + (methodes.contains(MethodeResolution.BACKTRACKING) ? "✓" : ""));
                         System.out.println("5. Résoudre");
@@ -73,10 +73,10 @@ public class ConsoleUI {
                                 }
                                 continue;
                             case 2:
-                                if (methodes.contains(MethodeResolution.UNICITE)) {
-                                    methodes.remove(MethodeResolution.UNICITE);
+                                if (methodes.contains(MethodeResolution.PLACEMENT_FORCE)) {
+                                    methodes.remove(MethodeResolution.PLACEMENT_FORCE);
                                 } else {
-                                    methodes.add(MethodeResolution.UNICITE);
+                                    methodes.add(MethodeResolution.PLACEMENT_FORCE);
                                 }
                                 continue;
                             case 3:
@@ -94,11 +94,14 @@ public class ConsoleUI {
                                 }
                                 continue;
                             case 5:
+                                long startTime = System.nanoTime(); // TODO A enlever
                                 if (sudoku.solve(methodes)) {
                                     System.out.println("Sudoku résolu !");
                                 } else {
                                     System.out.println("Aucune solution trouvée");
                                 }
+                                long endTime = System.nanoTime(); // TODO A enlever
+                                System.out.println(endTime - startTime); // TODO A enlever
                                 break;
                             case 6:
                                 System.out.println("Retour au menu principal...");
@@ -182,30 +185,30 @@ public class ConsoleUI {
     }
 
     private void initGrille() {
-        int[][] initialValues = {
-                {3, 6, 7, 0, 0, 9, 0, 5, 8},
-                {0, 2, 0, 5, 0, 1, 7, 0, 0},
-                {5, 9, 0, 8, 0, 7, 0, 2, 6},
-                {0, 3, 9, 0, 0, 0, 2, 1, 4},
-                {6, 4, 8, 1, 7, 2, 9, 0, 5},
-                {1, 5, 2, 0, 9, 4, 0, 6, 7},
-                {4, 1, 6, 9, 8, 3, 5, 7, 2},
-                {2, 0, 3, 7, 1, 0, 6, 4, 9},
-                {0, 7, 5, 2, 0, 0, 0, 8, 1}
-        };
-
-
 //        int[][] initialValues = {
-//                {0, 0, 0, 6, 7, 2, 0, 5, 0},
-//                {5, 0, 0, 4, 3, 9, 0, 2, 8},
-//                {0, 2, 0, 0, 0, 0, 3, 0, 0},
-//                {0, 0, 0, 0, 9, 0, 5, 0, 6},
-//                {0, 0, 5, 7, 0, 4, 9, 1, 0},
-//                {9, 0, 1, 0, 0, 3, 8, 0, 0},
-//                {0, 9, 2, 3, 1, 7, 0, 8, 5},
-//                {8, 5, 0, 9, 2, 6, 0, 0, 1},
-//                {0, 0, 0, 8, 4, 5, 2, 0, 0}
+//                {3, 6, 7, 0, 0, 9, 0, 5, 8},
+//                {0, 2, 0, 5, 0, 1, 7, 0, 0},
+//                {5, 9, 0, 8, 0, 7, 0, 2, 6},
+//                {0, 3, 9, 0, 0, 0, 2, 1, 4},
+//                {6, 4, 8, 1, 7, 2, 9, 0, 5},
+//                {1, 5, 2, 0, 9, 4, 0, 6, 7},
+//                {4, 1, 6, 9, 8, 3, 5, 7, 2},
+//                {2, 0, 3, 7, 1, 0, 6, 4, 9},
+//                {0, 7, 5, 2, 0, 0, 0, 8, 1}
 //        };
+
+
+        int[][] initialValues = {
+                {0, 0, 0, 6, 7, 2, 0, 5, 0},
+                {5, 0, 0, 4, 3, 9, 0, 2, 8},
+                {0, 2, 0, 0, 0, 0, 3, 0, 0},
+                {0, 0, 0, 0, 9, 0, 5, 0, 6},
+                {0, 0, 5, 7, 0, 4, 9, 1, 0},
+                {9, 0, 1, 0, 0, 3, 8, 0, 0},
+                {0, 9, 2, 3, 1, 7, 0, 8, 5},
+                {8, 5, 0, 9, 2, 6, 0, 0, 1},
+                {0, 0, 0, 8, 4, 5, 2, 0, 0}
+        };
 
 
 //        int[][] initialValues = {
