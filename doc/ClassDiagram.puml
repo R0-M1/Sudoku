@@ -4,17 +4,19 @@ skinparam classAttributeIconSize 0
 
 package UI {
     class ConsoleUI {
-        - colorMatch: Map<Integer, String>
-        - sudoku: Sudoku
+        - Map<Integer, String> charMap
+        - Sudoku sudoku
+        - {static}Map<Integer, String> createCharMap()
         + start(): void
-        - demanderTaille(): void
-        - demanderGrille(): void
-        - initGrille(): void
-        - afficherGrille(): void
+        - void demanderCharMap
+        - void demanderTaille()
+        - void demanderGrille()
+        - void initGrille()
+        - void afficherGrille()
     }
 
     class GUI {
-
+        // Extension à réaliser
     }
 }
 
@@ -53,23 +55,28 @@ package Game {
         + Case[][] getGrille()
         + ArrayList<Bloc> getBlocs()
         + int getTaille()
-        + void genererGrille()
         + void setCase(int row, int col, int valeur)
         + boolean isValid()
         + boolean isComplete()
     }
 
     class Sudoku {
-        - Grille grille
-        - Solveur solveur
+        # Grille grille
+        # Solveur solveur
 
         + Sudoku(int taille)
         + boolean solve(List<MethodeResolution> methodes)
         + Case[][] getGrille()
-        + boolean isValid()
-        + void initialiser()
         + int getTaille()
+        + void generer(Difficulte difficulte)
+        # void supprimerCases(int nb)
         + List<String> getLog()
+    }
+
+    enum Difficulte {
+        FACILE
+        MOYEN
+        DIFFICILE
     }
 
     class Solveur {
@@ -81,7 +88,12 @@ package Game {
         + Solveur(Grille grille)
         + boolean solve(boolean backtracking, List<MethodeResolution> regles)
         + boolean solveBackTracking()
+        - void solveRegles()
+        - boolean solveEliminationDirecte()
+        - boolean solvePlacementForce()
+        - boolean solvePaires()
         - void updateValeursPossibles(int row, int col)
+        - void updateAllValeursPossibles()
         + List<String> getLog()
     }
 
@@ -93,12 +105,13 @@ package Game {
     }
 
 
-    Grille "1" *-- "N" Case
-    Grille "1" *-- "N" Bloc
+    Grille *-- "N" Case
+    Grille *-- "N" Bloc
     Bloc .> Case
     Sudoku -> Grille
     Sudoku -> Solveur
     Solveur ..>  Grille
     Solveur --> MethodeResolution
+    Difficulte <. Sudoku
 }
 @enduml
