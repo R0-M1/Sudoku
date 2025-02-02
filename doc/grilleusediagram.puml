@@ -3,27 +3,25 @@ left to right direction
 actor User
 
 package Sudoku {
-usecase "Rentrer une grille de Sudoku" as rentrerGrille
-usecase "générer une grille " as GenerGrille
+usecase "Rentrer une grille manuellement" as RentrerGrille
+usecase "générer une grille " as GenererGrille
 usecase "Afficher la grille" as AfficherGrille
 usecase "Résoudre la grille" as ResoudreGrille
-usecase " Choisir le/les méthodes de résolution" as choixmeth
+usecase "Choisir le/les méthodes de résolution" as choixmeth
 usecase "Choix de diffculté" as Choixdifficulté
 usecase "Afficher suite d'opération de résolution" as afflog
-(resolvable)  as res
+usecase "resolvable ?" as resolvable
 
-GenerGrille .> res : include
-User --> rentreGrille
-User --> GenerGrille
-User --> choixmeth
-User <-- afflog
-User --> Choixdifficulté
+GenererGrille .> resolvable : <<include>>
+User -- GenererGrille
+User -- afflog
+GenererGrille ..> Choixdifficulté : <<include>>
+User -- RentrerGrille
 
-User<-- AfficherGrille
-User--> ResoudreGrille
+User-- AfficherGrille
+User-- ResoudreGrille
+ResoudreGrille ..> choixmeth : <<include>>
 
-
-ResoudreGrille .. AfficherGrille
 
 }
 @enduml
