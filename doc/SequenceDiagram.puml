@@ -1,0 +1,5 @@
+@startuml
+actor User
+ConsoleUI -> Sudoku
+Sudoku -> Grille
+@enduml

@@ -1,5 +1,6 @@
 package Game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sudoku {
@@ -26,6 +27,11 @@ public class Sudoku {
 
     public void initialiser() {
         grille.genererGrille();
+    }
+
+    public void generer() {
+        grille = new Grille(9);
+        solveur.solve(true, new ArrayList<>());
     }
 
     public int getTaille() {

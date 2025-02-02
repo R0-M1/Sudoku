@@ -12,20 +12,20 @@ package UI {
         - initGrille(): void
         - afficherGrille(): void
     }
-    
+
     class GUI {
-        
+
     }
 }
 
-UI -> Game.Sudoku
+UI --> Game.Sudoku
 
 package Game {
     class Case {
         - Integer valeur
         - int blocId
         - Set<Integer> valeursPossibles
-        
+
         + Case(int blocId, Integer valeur)
         + Integer getValeur()
         + int getBlocId()
@@ -48,7 +48,7 @@ package Game {
         - Case[][] grille
         - final int taille
         - ArrayList<Bloc> blocs
-        
+
         + Grille(int taille)
         + Case[][] getGrille()
         + ArrayList<Bloc> getBlocs()
@@ -81,19 +81,24 @@ package Game {
         + Solveur(Grille grille)
         + boolean solve(boolean backtracking, List<MethodeResolution> regles)
         + boolean solveBackTracking()
+        - void updateValeursPossibles(int row, int col)
         + List<String> getLog()
     }
 
     enum MethodeResolution {
+        BACKTRACKING
+        ELIMINATION_DIRECTE
+        PLACEMENT_FORCE
+        PAIRES
     }
 
-  
+
     Grille "1" *-- "N" Case
     Grille "1" *-- "N" Bloc
     Bloc .> Case
     Sudoku -> Grille
     Sudoku -> Solveur
     Solveur ..>  Grille
-    Solveur *-- MethodeResolution
+    Solveur --> MethodeResolution
 }
 @enduml

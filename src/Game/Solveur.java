@@ -20,6 +20,7 @@ public class Solveur {
 
         this.regles = regles;
         solveRegles();
+        solveBackTracking();
         if (backtracking) {
             solveBackTracking();
         }
@@ -46,6 +47,15 @@ public class Solveur {
                         ajouterLog("Essai de la valeur " + valeur + " en (" + row + ", " + col + ")");
 
                         updateAllValeursPossibles();
+
+
+                        for(int i = 0; i<grille.getTaille();i++) {
+                            for(int j = 0; j<grille.getTaille();j++) {
+                                System.out.print(grille.getGrille()[i][j].getValeur() + " ");
+                            }
+                            System.out.println();
+                        }
+
 
                         if (grille.isValid() && solveBackTracking()) {
                             solveRegles();

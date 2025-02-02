@@ -122,6 +122,8 @@ public class ConsoleUI {
                     }
                     break;
                 case 5:
+                    demanderTaille();
+                    sudoku.generer();
                     // Génère une grille à partir d'une grille complète et d'un niveau de difficulté
                     break;
                 case 6:
