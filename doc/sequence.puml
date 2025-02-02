@@ -75,16 +75,22 @@ else Choix == 5
     ConsoleGUI -> Sudoku : générer en fonction de la difficulté sélèctionée
 
     activate Sudoku
-    Sudoku -> Grille : create grille
+    Sudoku -> Grille : create grille vide
     activate Grille
-    Sudoku <-- Grille : grille créer
+    Sudoku <-- Grille : grille vide créer
     deactivate Grille
-    Sudoku -> Solveur : vérifie grille solvable
+    Sudoku -> Solveur : grille a remplire
     activate Solveur
-    Sudoku <-- Solveur : grille verifier sol
+    Sudoku <-- Solveur : grille remplit
+    Sudoku -> Sudoku :  supprime case
+    Sudoku -> Solveur : vérifie solvable
+    Sudoku <-- Solveur : solvable
+
     deactivate Solveur
 
     ConsoleGUI <- Sudoku : sudoku solvable
+
+    deactivate Sudoku
 
 
 
