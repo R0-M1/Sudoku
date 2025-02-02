@@ -3,6 +3,7 @@ package UI;
 import java.util.*;
 
 import Game.Case;
+import Game.Difficulte;
 import Game.Sudoku;
 import Game.MethodeResolution;
 
@@ -123,8 +124,31 @@ public class ConsoleUI {
                     break;
                 case 5:
                     demanderTaille();
-                    sudoku.generer();
-                    // Génère une grille à partir d'une grille complète et d'un niveau de difficulté
+
+                    while (true) {
+                        System.out.println("\033[1mChoisissez une difficultée :\033[0m");
+                        System.out.println("1. Facile");
+                        System.out.println("2. Moyen");
+                        System.out.println("3. Difficile");
+
+                        int choix3 = scanner.nextInt();
+                        switch (choix3) {
+                            case 1:
+                                sudoku.generer(Difficulte.FACILE);
+                                break;
+                            case 2:
+                                sudoku.generer(Difficulte.MOYEN);
+                                break;
+                            case 3:
+                                sudoku.generer(Difficulte.DIFFICILE);
+                                break;
+                            default:
+                                System.out.println("Choix invalide. Veuillez réessayer.");
+                                continue;
+                        }
+                        break;
+                    }
+
                     break;
                 case 6:
                     sudoku = new Sudoku(9);
@@ -271,5 +295,4 @@ public class ConsoleUI {
             System.out.println();
         }
     }
-
 }

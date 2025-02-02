@@ -48,15 +48,6 @@ public class Solveur {
 
                         updateAllValeursPossibles();
 
-
-                        for(int i = 0; i<grille.getTaille();i++) {
-                            for(int j = 0; j<grille.getTaille();j++) {
-                                System.out.print(grille.getGrille()[i][j].getValeur() + " ");
-                            }
-                            System.out.println();
-                        }
-
-
                         if (grille.isValid() && solveBackTracking()) {
                             solveRegles();
                             return true; // Si la grille est valide

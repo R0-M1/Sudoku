@@ -2,6 +2,11 @@ package Game;
 
 import java.util.*;
 
-public class Multidoku {
-    private ArrayList<Grille> mutligrille;
+// Multidoku pouvant gérer des blocs non carrés
+public class Multidoku extends Sudoku {
+
+
+
+
+
 }
