@@ -4,7 +4,16 @@
 
 * Diagramme de classe
 
-![Diagramme de classe](https://github.com/R0-M1/Sudoku/tree/main/doc)
+![Diagramme de classe](/doc/ClassDiagram.png)
+
+* Diagramme de cas d'utilisation
+
+![Diagramme de cas d'utilisation](/doc/UsecaseDiagram.png)
+
+* Diagramme de séquence
+
+![Diagramme de séquence](/doc/SequenceDiagram.png)
+
 
 ### Organisation de l'archive
 ***
