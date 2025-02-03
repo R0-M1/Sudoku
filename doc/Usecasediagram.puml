@@ -11,6 +11,9 @@ usecase "Choisir le/les méthodes de résolution" as choixmeth
 usecase "Choix de diffculté" as Choixdifficulté
 usecase "Afficher suite d'opération de résolution" as afflog
 usecase "resolvable ?" as resolvable
+usecase "Elimination directe" as eli
+usecase "Placement forcé" as pla
+usecase "Paires" as pai
 
 GenererGrille .> resolvable : <<include>>
 User -- GenererGrille
@@ -22,6 +25,9 @@ User-- AfficherGrille
 User-- ResoudreGrille
 ResoudreGrille ..> choixmeth : <<include>>
 
+choixmeth <-- eli
+choixmeth <-- pla
+choixmeth <-- pai
 
 }
 @enduml

@@ -143,7 +143,7 @@ public class ConsoleUI {
                     demanderTaille();
 
                     while (true) {
-                        System.out.println("\033[1mChoisissez une difficultée :\033[0m");
+                        System.out.println("\033[1mChoisissez une difficulté :\033[0m");
                         System.out.println("1. Facile");
                         System.out.println("2. Moyen");
                         System.out.println("3. Difficile");

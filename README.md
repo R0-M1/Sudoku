@@ -1,22 +1,18 @@
-# Game.Sudoku
+# Sudoku
+
+### Diagrammes
+
+* Diagramme de classe
+
+![Diagramme de classe](https://github.com/R0-M1/Sudoku/tree/main/doc)
 
 ### Organisation de l'archive
 ***
-* [`doc`]() : Contient la documentaion de l'application
-* [`src`]() : Contient les sources Java de l'application
+* [`doc`](https://github.com/R0-M1/Sudoku/tree/main/doc) : Contient la documentaion de l'application
+* [`src`](https://github.com/R0-M1/Sudoku/tree/main/src) : Contient les sources Java de l'application
 
 ### Membres
 ***
-AILLAUD Romain
-
-
-
-
-
-### Idées
-***
-
-faire des classes lignes et colonnes qui partage les memes references de Game.Case avec la classe Game.Bloc
-
-Avantages : 
-reduit la complexité
+AILLAUD Romain  
+DONZEL Quentin  
+Delaveaud Quentin

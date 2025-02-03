@@ -20,7 +20,7 @@ package UI {
     }
 }
 
-UI --> Game.Sudoku
+UI ---> Game.Sudoku
 
 package Game {
     class Case {
@@ -79,6 +79,12 @@ package Game {
         DIFFICILE
     }
 
+    class Multidoku {
+            + Multidoku(int taille)
+            + void generer(Difficulte difficulte)
+            // Suite à réaliser
+        }
+
     class Solveur {
         - Grille grille
         - int taille
@@ -104,7 +110,6 @@ package Game {
         PAIRES
     }
 
-
     Grille *-- "N" Case
     Grille *-- "N" Bloc
     Bloc .> Case
@@ -113,5 +118,7 @@ package Game {
     Solveur ..>  Grille
     Solveur --> MethodeResolution
     Difficulte <. Sudoku
+    Multidoku -|> Sudoku
+    Difficulte <.. Multidoku
 }
 @enduml
